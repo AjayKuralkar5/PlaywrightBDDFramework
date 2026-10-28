@@ -77,7 +77,7 @@ Then("API response status should be {int}",async function (this: CustomWorld,exp
 );
 
 
-// GET created object
+// GET created objectS
 
 When("User retrieves the created object",async function (this: CustomWorld) {
 
