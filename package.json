@@ -1,0 +1,24 @@
+{
+   
+  "name": "playwright-bdd-framework",
+  "version": "1.0.0",
+  "description": "Playwright TypeScript Cucumber BDD Automation Framework",
+"scripts": {
+  "test": "cucumber-js",
+  "test:textbox": "cucumber-js --tags \"@TextBox\"",
+  "test:smoke": "cucumber-js --tags \"@Smoke\"",
+  "test:ui": "cucumber-js --tags \"@UI\"",
+  "test:api": "cucumber-js --tags \"@API\""
+},
+
+  "devDependencies": {
+    "@cucumber/cucumber": "^13.3.0",
+    "@playwright/test": "^1.64.1",
+    "@types/node": "^26.6.5",
+    "playwright": "^1.64.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.3"
+  }
+
+
+}
