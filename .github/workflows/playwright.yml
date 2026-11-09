@@ -3,6 +3,7 @@ name: Playwright BDD Automation
 on:
   workflow_dispatch:
     inputs:
+
       cucumber_tag:
         description: "Select test suite"
         required: true
@@ -14,6 +15,16 @@ on:
           - "@Smoke"
           - "@UI"
           - "@Regression"
+
+      browser:
+        description: "Select browser"
+        required: true
+        default: "chromium"
+        type: choice
+        options:
+          - "chromium"
+          - "firefox"
+          - "webkit"
 
 jobs:
   test:
@@ -34,20 +45,24 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Install Chromium
-        run: npx playwright install --with-deps chromium
+      - name: Install Selected Browser
+        if: inputs.cucumber_tag != '@API'
+        run: npx playwright install --with-deps "${{ inputs.browser }}"
 
       - name: TypeScript Check
         run: npx tsc --noEmit
 
       - name: Run Selected Cucumber Tests
+        env:
+          BROWSER: ${{ inputs.browser }}
+          REPORT_NAME: ${{ inputs.cucumber_tag == '@API' && 'api' || inputs.browser }}
         run: npx cucumber-js --tags "${{ inputs.cucumber_tag }}"
 
       - name: Upload Cucumber Report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: cucumber-report
+          name: cucumber-report-${{ inputs.browser }}-${{ github.run_number }}
           path: reports/
           if-no-files-found: warn
           retention-days: 30

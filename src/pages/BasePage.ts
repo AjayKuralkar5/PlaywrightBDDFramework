@@ -20,7 +20,7 @@ export class BasePage{
     //Promise<void> → method runs asynchronously and returns no value.
     async fillText(locator:Locator,value:string): Promise<void>{
         //await locator.fill(value) → waits while Playwright enters the text into that element.
-        await locator.fill(value);
+        await locator.fill(value, );
     }
 
     async clickkAction(locator:Locator):Promise<void>{

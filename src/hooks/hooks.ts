@@ -1,5 +1,5 @@
 import{After,Before,Status,setDefaultTimeout } from "@cucumber/cucumber";
-import { chromium } from "playwright";
+import { chromium, firefox, webkit } from "playwright";
 import { environment } from "../config/environment";
 import { TextBoxPage } from "../pages/TextBoxPage";
 import { CustomWorld } from "../support/World";
@@ -10,18 +10,46 @@ import { ApiClient } from "../api/ApiClient";
 setDefaultTimeout(60 * 1000);
 //UI Before Hook
 Before({tags:"@UI"}, async function (this: CustomWorld) {
-   this.browser=await chromium.launch({headless:environment.headless});
+   const browserTypes= {chromium:chromium, firefox:firefox, webkit:webkit
+};
 
-   this.context=await this.browser.newContext();
+ const selectedBrowserType=browserTypes[environment.browser];
+ console.log(`\nLaunching browser:${environment.browser}`);
+ console.log(`Headless mode:${environment.browser}`);
+ 
+ this.browser=await selectedBrowserType.launch({
+    headless:environment.headless
+ })
 
-   this.page = await this.context.newPage();
+ this.context= await this.browser.newContext({
+    viewport:{
+        width:1920,
+        height:1080
+    }
+ });
 
-   this.page.setDefaultTimeout(environment.defaultTimeout);
+ this.page=await this.context.newPage();
 
-   this.textBoxPage=new TextBoxPage(this.page);
+ this.page.setDefaultTimeout(environment.defaultTimeout);
+
+ this.textBoxPage=new TextBoxPage(this.page);
+
+}
+);
 
 
-})
+//    this.browser=await chromium.launch({headless:environment.headless});
+
+//    this.context=await this.browser.newContext();
+
+//    this.page = await this.context.newPage();
+
+//    this.page.setDefaultTimeout(environment.defaultTimeout);
+
+//    this.textBoxPage=new TextBoxPage(this.page);
+
+
+// })
 
 //  API Before Hook
 Before({tags:"@API"}, async function (this:CustomWorld){

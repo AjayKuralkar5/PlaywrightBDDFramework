@@ -1,24 +1,53 @@
 {
    
   "name": "playwright-bdd-framework",
+   
   "version": "1.0.0",
+   
   "description": "Playwright TypeScript Cucumber BDD Automation Framework",
-"scripts": {
-  "test": "cucumber-js",
-  "test:textbox": "cucumber-js --tags \"@TextBox\"",
-  "test:smoke": "cucumber-js --tags \"@Smoke\"",
-  "test:ui": "cucumber-js --tags \"@UI\"",
-  "test:api": "cucumber-js --tags \"@API\""
+   
+  "scripts": {
+   
+     
+ "test:textbox": "cross-env BROWSER=chromium cucumber-js --tags \"@TextBox\"",
+
+  "test:textbox:chromium": "cross-env BROWSER=chromium cucumber-js --tags \"@TextBox\"",
+
+  "test:textbox:firefox": "cross-env BROWSER=firefox cucumber-js --tags \"@TextBox\"",
+
+  "test:textbox:webkit": "cross-env BROWSER=webkit cucumber-js --tags \"@TextBox\"",
+
+  "test:textbox:all": "npm run test:textbox:chromium && npm run test:textbox:firefox && npm run test:textbox:webkit",
+
+  "test:smoke": "cross-env BROWSER=chromium cucumber-js --tags \"@Smoke\"",
+
+  "test:ui": "cross-env BROWSER=chromium cucumber-js --tags \"@UI\"",
+
+  "test:api": "cross-env REPORT_NAME=api cucumber-js --tags \"@API\""
 },
-
+   
   "devDependencies": {
-    "@cucumber/cucumber": "^13.3.0",
-    "@playwright/test": "^1.64.1",
-    "@types/node": "^26.6.5",
-    "playwright": "^1.64.1",
-    "ts-node": "^10.9.2",
-    "typescript": "^6.0.3"
+   
+     
+  "@cucumber/cucumber": "^13.3.0",
+   
+     
+  "@playwright/test": "^1.64.1",
+   
+     
+  "@types/node": "^26.6.5",
+   
+     
+  "cross-env": "^10.1.0",
+   
+     
+  "playwright": "^1.64.1",
+   
+     
+  "ts-node": "^10.9.2",
+   
+     
+  "typescript": "^6.0.3"
+   
   }
-
-
 }

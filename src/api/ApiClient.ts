@@ -79,126 +79,74 @@ export class  ApiClient{
         console.log("--------------------------------------\n");
     }
     
-     async get(
-        endpoint: string
-    ): Promise<APIResponse> {
+     async get(endpoint: string): Promise<APIResponse> {
 
-        this.logRequest(
-            "GET",
-            endpoint
-        );
+        this.logRequest( "GET",endpoint);
 
-        const response =
-            await this.request.get(
-                endpoint
-            );
+        const response =await this.request.get(endpoint);
 
-        await this.logResponse(
-            response
-        );
+        await this.logResponse(response);
 
         return response;
     }
 
 
-    async post(
-        endpoint: string,
-        body: object
-    ): Promise<APIResponse> {
+    async post(endpoint: string,body: object): Promise<APIResponse> {
 
-        this.logRequest(
-            "POST",
-            endpoint,
-            body
-        );
+        this.logRequest("POST",endpoint,body);
 
-        const response =
-            await this.request.post(
+        const response =await this.request.post(endpoint,
+                {
+                    data: body
+                }
+            );
+
+        await this.logResponse(response);
+
+        return response;
+    }
+
+
+    async put(endpoint: string,body: object): Promise<APIResponse> {
+
+        this.logRequest("PUT",endpoint,body);
+
+        const response =await this.request.put(
                 endpoint,
                 {
                     data: body
                 }
             );
 
-        await this.logResponse(
-            response
-        );
+        await this.logResponse(response);
 
         return response;
     }
 
 
-    async put(
-        endpoint: string,
-        body: object
-    ): Promise<APIResponse> {
+    async patch(endpoint: string,body: object): Promise<APIResponse> {
 
-        this.logRequest(
-            "PUT",
-            endpoint,
-            body
-        );
+        this.logRequest("PATCH",endpoint,body);
 
-        const response =
-            await this.request.put(
-                endpoint,
+        const response =await this.request.patch(endpoint,
                 {
                     data: body
                 }
             );
 
-        await this.logResponse(
-            response
-        );
+        await this.logResponse(response);
 
         return response;
     }
 
 
-    async patch(
-        endpoint: string,
-        body: object
-    ): Promise<APIResponse> {
+    async delete(endpoint: string): Promise<APIResponse> {
 
-        this.logRequest(
-            "PATCH",
-            endpoint,
-            body
-        );
+        this.logRequest("DELETE",endpoint);
 
-        const response =
-            await this.request.patch(
-                endpoint,
-                {
-                    data: body
-                }
-            );
+        const response =await this.request.delete(endpoint);
 
-        await this.logResponse(
-            response
-        );
-
-        return response;
-    }
-
-
-    async delete(
-        endpoint: string
-    ): Promise<APIResponse> {
-
-        this.logRequest(
-            "DELETE",
-            endpoint
-        );
-
-        const response =
-            await this.request.delete(
-                endpoint
-            );
-
-        await this.logResponse(
-            response
-        );
+        await this.logResponse(response);
 
         return response;
     }

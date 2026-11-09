@@ -32,6 +32,8 @@ import type{
 //we keep scenario-specific objects in CustomWorld
 //This will also make the framework better prepared for parallel execution later.
 export class CustomWorld extends World {
+// The ! after a property tells TypeScript that the property will be assigned before use, even if the 
+//constructor does not initialize it. 
 
     browser!: Browser;
     context!: BrowserContext;
