@@ -23,7 +23,15 @@
 
   "test:ui": "cross-env BROWSER=chromium cucumber-js --tags \"@UI\"",
 
-  "test:api": "cross-env REPORT_NAME=api cucumber-js --tags \"@API\""
+  "test:api": "cross-env REPORT_NAME=api cucumber-js --tags \"@API\"",
+
+  "test:mobile:pixel":"cross-env BROWSER=chromium DEVICE=pixel5 cucumber-js --tags \"@Mobile\"",
+
+   "test:mobile:iphone": "cross-env BROWSER=webkit DEVICE=iphone13 cucumber-js --tags \"@Mobile\"",
+
+    "test:mobile:galaxy": "cross-env BROWSER=chromium DEVICE=galaxyA55 cucumber-js --tags \"@Mobile\"",
+
+    "test:mobile:all": "npm run test:mobile:pixel && npm run test:mobile:iphone && npm run test:mobile:galaxy"
 },
    
   "devDependencies": {

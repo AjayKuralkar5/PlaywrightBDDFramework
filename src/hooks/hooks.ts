@@ -1,5 +1,6 @@
 import{After,Before,Status,setDefaultTimeout } from "@cucumber/cucumber";
 import { chromium, firefox, webkit } from "playwright";
+import { getDeviceConfig} from "../devices/mobileDevices";
 import { environment } from "../config/environment";
 import { TextBoxPage } from "../pages/TextBoxPage";
 import { CustomWorld } from "../support/World";
@@ -14,21 +15,54 @@ Before({tags:"@UI"}, async function (this: CustomWorld) {
 };
 
  const selectedBrowserType=browserTypes[environment.browser];
- console.log(`\nLaunching browser:${environment.browser}`);
- console.log(`Headless mode:${environment.browser}`);
+ const selectedDevice=getDeviceConfig(environment.device);
+ console.log(
+    `\nLaunching browser: ${environment.browser}`
+);
+
+console.log(
+    `Selected device: ${environment.device}`
+);
+
+console.log(
+    "Device configuration:",
+    selectedDevice
+);
+
+console.log(
+    `Viewport: ${
+        JSON.stringify(
+            selectedDevice.viewport
+        )
+    }`
+);
+
+console.log(
+    `Mobile: ${selectedDevice.isMobile}`
+);
+
+console.log(
+    `Touch: ${selectedDevice.hasTouch}`
+);
+
+console.log(
+    `Headless mode: ${environment.headless}`
+);
  
  this.browser=await selectedBrowserType.launch({
     headless:environment.headless
  })
 
  this.context= await this.browser.newContext({
-    viewport:{
-        width:1920,
-        height:1080
-    }
+   
+      ...selectedDevice
+
+    
  });
 
  this.page=await this.context.newPage();
+
+ console.log("Actual page viewport:", this.page.viewportSize());
 
  this.page.setDefaultTimeout(environment.defaultTimeout);
 

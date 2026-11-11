@@ -23,7 +23,9 @@
 
 const browser=process.env.BROWSER ||"chromium";
 
-const reportName=process.env.REPORT_NAME ||"browser";
+const device=process.env.DEVICE||"desktop";
+
+const reportName=process.env.REPORT_NAME || `${browser}-${device}`;
 
 module.exports={
   default:{

@@ -1,4 +1,4 @@
-@Smoke @UI @TextBox
+@Smoke @UI @TextBox @Mobile
 Feature: DemoQA Text Box functionality
 
   Scenario Outline: Submit valid Text Box details
