@@ -67,6 +67,7 @@ jobs:
       - name: Run Selected Cucumber Tests
         env:
           BROWSER: ${{ inputs.browser }}
+          DEVICE: ${{ inputs.device }}
           REPORT_NAME: ${{ inputs.cucumber_tag == '@API' && 'api' || inputs.browser }}
         run: npx cucumber-js --tags "${{ inputs.cucumber_tag }}"
 
